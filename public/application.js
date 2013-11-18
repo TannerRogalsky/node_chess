@@ -7,7 +7,7 @@ $(function(){
     draggable: true,
     // dropOffBoard: 'trash',
     // sparePieces: true
-    // position: "start",
+    position: "start",
     onDrop: onDrop,
   });
 

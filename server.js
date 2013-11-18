@@ -27,7 +27,8 @@ wss.on('connection', function(ws) {
       uci.startNewGame(uci.getAvailableEngines()[0], 'black', 10, uci.getAvailableBooks()[0]);
     });
     uci.on('newgame', function () {
-      ws.send(game.fen());
+      // ws.send(game.fen());
+      console.log("newgame");
     });
 
     uci.on('moved', function (move) {

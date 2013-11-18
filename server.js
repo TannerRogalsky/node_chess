@@ -14,14 +14,48 @@ console.log('http server listening on %d', port);
 var wss = new WebSocketServer({server: server});
 console.log('websocket server created');
 wss.on('connection', function(ws) {
-    var id = setInterval(function() {
-        ws.send(JSON.stringify(new Date()), function() {  });
-    }, 1000);
+    var UCI = require('uci').UCI;
+    var uci = new UCI();
+    var os = require('os');
+    var Chess = require('chess.js').Chess;
+    var game = new Chess();
 
     console.log('websocket connection open');
 
+    // UCI start
+    uci.on('ready', function(){
+      uci.startNewGame(uci.getAvailableEngines()[0], 'black', 10, uci.getAvailableBooks()[0]);
+    });
+    uci.on('newgame', function () {
+      ws.send(game.fen());
+    });
+
+    uci.on('moved', function (move) {
+      game.move(move);
+      ws.send(game.fen());
+    });
+
+    function convertToMoveObject(move) {
+      if (typeof move == 'object') {
+        return move;
+      }
+      var result = {};
+      result.from = move.substring(0, 2);
+      result.to = move.substring(2, 4);
+      if (move.length > 4) {
+        result.promotion = move.substring(4);
+      }
+      return result;
+    }
+
+    ws.on('message', function(message){
+      console.log(message);
+      var move = convertToMoveObject(message);
+      game.move(move);
+      uci.move(move);
+    });
+
     ws.on('close', function() {
-        console.log('websocket connection close');
-        clearInterval(id);
+      console.log('websocket connection close');
     });
 });

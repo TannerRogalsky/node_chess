@@ -69,3 +69,7 @@ wss.on('connection', function(ws) {
       console.log('websocket connection close');
     });
 });
+
+wss.on("error", function(error){
+  console.log(error);
+});

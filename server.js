@@ -11,6 +11,19 @@ server.listen(port);
 
 console.log('http server listening on %d', port);
 
+function convertToMoveObject(move) {
+  if (typeof move == 'object') {
+    return move;
+  }
+  var result = {};
+  result.from = move.substring(0, 2);
+  result.to = move.substring(2, 4);
+  if (move.length > 4) {
+    result.promotion = move.substring(4);
+  }
+  return result;
+}
+
 var wss = new WebSocketServer({server: server});
 console.log('websocket server created');
 wss.on('connection', function(ws) {
@@ -45,19 +58,6 @@ wss.on('connection', function(ws) {
       uci.shutdown();
       process.exit();
     });
-
-    function convertToMoveObject(move) {
-      if (typeof move == 'object') {
-        return move;
-      }
-      var result = {};
-      result.from = move.substring(0, 2);
-      result.to = move.substring(2, 4);
-      if (move.length > 4) {
-        result.promotion = move.substring(4);
-      }
-      return result;
-    }
 
     ws.on('message', function(message){
       console.log(message);

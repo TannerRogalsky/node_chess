@@ -65,6 +65,10 @@ wss.on('connection', function(ws) {
       uci.move(move);
     });
 
+    ws.on('error', function(error){
+      console.log(error);
+    });
+
     ws.on('close', function() {
       console.log('websocket connection close');
     });

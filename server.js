@@ -40,8 +40,8 @@ wss.on('connection', function(ws) {
     //   uci.startNewGame(uci.getAvailableEngines()[0], 'black', 10, uci.getAvailableBooks()[0]);
     // });
     // uci.on('newgame', function () {
-      console.log(game.fen());
-      ws.send(game.fen());
+      // console.log(game.fen());
+      // ws.send(game.fen());
     // });
 
     // uci.on('moved', function (move) {

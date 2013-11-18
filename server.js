@@ -51,6 +51,7 @@ wss.on('connection', function(ws) {
 
     uci.on('error', function (message) {
       console.log('Error:' + message);
+      ws.send(game.fen());
     }).on('exit', function (message) {
       console.log('Exiting:' + message);
     }).on('gameends', function (result, reason) {

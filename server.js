@@ -1,5 +1,3 @@
-require("longjohn");
-
 var WebSocketServer = require('ws').Server
   , http = require('http')
   , express = require('express')
@@ -38,42 +36,43 @@ wss.on('connection', function(ws) {
     console.log('websocket connection open');
 
     // UCI start
-    uci.on('ready', function(){
-      uci.startNewGame(uci.getAvailableEngines()[0], 'black', 10, uci.getAvailableBooks()[0]);
-    });
-    uci.on('newgame', function () {
+    // uci.on('ready', function(){
+    //   uci.startNewGame(uci.getAvailableEngines()[0], 'black', 10, uci.getAvailableBooks()[0]);
+    // });
+    // uci.on('newgame', function () {
+      console.log(game.fen());
       ws.send(game.fen());
-    });
+    // });
 
-    uci.on('moved', function (move) {
-      game.move(move);
-      ws.send(game.fen());
-    });
+    // uci.on('moved', function (move) {
+    //   game.move(move);
+    //   ws.send(game.fen());
+    // });
 
-    uci.on('error', function (message) {
-      console.log('Error:' + message);
-    }).on('exit', function (message) {
-      console.log('Exiting:' + message);
-    }).on('gameends', function (result, reason) {
-      console.log('Game ends with result ' + result + ' because ' + reason);
-      uci.shutdown();
-      process.exit();
-    });
+    // uci.on('error', function (message) {
+    //   console.log('Error:' + message);
+    // }).on('exit', function (message) {
+    //   console.log('Exiting:' + message);
+    // }).on('gameends', function (result, reason) {
+    //   console.log('Game ends with result ' + result + ' because ' + reason);
+    //   uci.shutdown();
+    //   process.exit();
+    // });
 
-    ws.on('message', function(message){
-      console.log(message);
-      var move = convertToMoveObject(message);
-      game.move(move);
-      uci.move(move);
-    });
+    // ws.on('message', function(message){
+    //   console.log(message);
+    //   var move = convertToMoveObject(message);
+    //   game.move(move);
+    //   uci.move(move);
+    // });
 
-    ws.on('error', function(error){
-      console.log(error);
-    });
+    // ws.on('error', function(error){
+    //   console.log(error);
+    // });
 
-    ws.on('close', function() {
-      console.log('websocket connection close');
-    });
+    // ws.on('close', function() {
+    //   console.log('websocket connection close');
+    // });
 });
 
 wss.on("error", function(error){

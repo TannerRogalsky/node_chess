@@ -10,7 +10,6 @@
     "express": "3.x",
     "uci": "0.1.x",
     "chess.js": "TannerRogalsky/chess.js",
-    "longjohn": "0.2.2"
   },
   "engines": {
     "node": "0.10.x",

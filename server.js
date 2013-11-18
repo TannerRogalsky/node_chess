@@ -35,6 +35,16 @@ wss.on('connection', function(ws) {
       ws.send(game.fen());
     });
 
+    uci.on('error', function (message) {
+      console.log('Error:' + message);
+    }).on('exit', function (message) {
+      console.log('Exiting:' + message);
+    }).on('gameends', function (result, reason) {
+      console.log('Game ends with result ' + result + ' because ' + reason);
+      uci.shutdown();
+      process.exit();
+    });
+
     function convertToMoveObject(move) {
       if (typeof move == 'object') {
         return move;

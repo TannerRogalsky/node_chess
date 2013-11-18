@@ -1,3 +1,5 @@
+require("longjohn");
+
 var WebSocketServer = require('ws').Server
   , http = require('http')
   , express = require('express')
@@ -40,8 +42,7 @@ wss.on('connection', function(ws) {
       uci.startNewGame(uci.getAvailableEngines()[0], 'black', 10, uci.getAvailableBooks()[0]);
     });
     uci.on('newgame', function () {
-      // ws.send(game.fen());
-      console.log("newgame");
+      ws.send(game.fen());
     });
 
     uci.on('moved', function (move) {

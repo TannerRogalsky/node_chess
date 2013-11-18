@@ -9,7 +9,7 @@
     "ws": "0.4.x",
     "express": "3.x",
     "uci": "0.1.x",
-    "chess.js": "TannerRogalsky/chess.js",
+    "chess.js": "TannerRogalsky/chess.js"
   },
   "engines": {
     "node": "0.10.x",

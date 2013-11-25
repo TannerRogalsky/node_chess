@@ -79,3 +79,7 @@ wss.on('connection', function(ws) {
 wss.on("error", function(error){
   console.log(error);
 });
+
+process.on("uncaughtException", function(err){
+  console.log(err);
+})

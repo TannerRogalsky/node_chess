@@ -8,7 +8,7 @@
   "dependencies": {
     "ws": "0.4.x",
     "express": "3.x",
-    "uci": "0.1.x",
+    "uci": "TannerRogalsky/uci",
     "chess.js": "TannerRogalsky/chess.js"
   },
   "engines": {
